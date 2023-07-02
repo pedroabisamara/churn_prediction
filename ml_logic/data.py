@@ -10,7 +10,7 @@ data.shape
 data.dtypes
 data.info()
 data.describe()
-data.isnull().sum()
+data.isna().sum()
 
 # print the unique values from each column of 'data'
 for col in data.columns:
