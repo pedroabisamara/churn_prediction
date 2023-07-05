@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from sklearn.preprocessing import RobustScaler, MinMaxScaler, StandardScaler, LabelEncoder
+from sklearn.preprocessing import RobustScaler, MinMaxScaler, StandardScaler, LabelEncoder, OneHotEncoder, OrdinalEncoder
 
 
 data = pd.read_csv('../data/WA_Fn-UseC_-Telco-Customer-Churn.csv')
@@ -70,12 +70,32 @@ sns.boxplot(data['MonthlyCharges'])
 # convert the 'TotalCharges' column to a numeric data type.
 data['TotalCharges'] = data['TotalCharges'].apply(lambda x: pd.to_numeric(x, errors='coerce')).dropna()
 
+# identify ouutlier in the MonthlyCharges column
+sns.boxplot(data['TotalCharges'])
+
 # analyzing only the categorical features of 'data'
 cat_features = data.select_dtypes(include='object')
 cat_features.head()
 
 # setting each categorical feature to its proper encoder
-ohe_features = ['gender', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity']
-oe_features = ['OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod']
-le_features = ['Churn']
-le = LabelEncoder()
+bin_features = ['gender', 'Partner', 'Dependents', 'PhoneService', 'PaperlessBilling']
+nom_features = ['MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'PaymentMethod']
+ord_features = [ 'Contract']
+lab_features = ['Churn']
+
+# Encoding binary features 'bn_features'
+bin_enc = OneHotEncoder() #lembrar qual parametro indica ser feature categorica binaria
+
+
+# Encoding nominal features 'ohe_features'
+oh_enc = OneHotEncoder(handle_unknown='ignore', sparse=False)
+
+
+# Encoding ordinal features 'oe_features'
+ord_enc = OrdinalEncoder()
+
+# Encoding 'churn' label
+lab_enc = LabelEncoder()
+
+
+# ------- CREATE A PIPELINE -------
