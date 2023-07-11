@@ -9,11 +9,11 @@ data = pd.read_csv('../data/WA_Fn-UseC_-Telco-Customer-Churn.csv')
 
 # ------- DATA REVIEW -------
 
-data.columns #OK
-data.head() #OK
-data.shape #OK
-data.dtypes #OK
-data.info() #OK
+data.columns
+data.head()
+data.shape
+data.dtypes
+data.info()
 data.describe()
 data.isna().sum()
 
@@ -24,8 +24,8 @@ data['Dependents'].value_counts(normalize=True)
 data['Churn'].value_counts(normalize=True)
 
 # print the unique values from each column of 'data'
-for col in data.columns: #OK
-    print(col, data[col].unique()) #OK
+for col in data.columns:
+    print(col, data[col].unique())
 
 # ------- EXPLORATORY DATA ANALYSIS -------
 
